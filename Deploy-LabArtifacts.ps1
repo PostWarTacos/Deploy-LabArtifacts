@@ -17,29 +17,139 @@
     - Windows 10/11 or Windows Server
     - Administrator privileges (script will verify and exit if not elevated)
     - PowerShell 5.0 or later
+
+.SCENARIO BACKGROUND - INSIDER THREAT INVESTIGATION
+    COMPANY: TechCorp Industries
+    VICTIM: CEO Jennifer Martinez (this computer)
+    THREAT ACTOR: Marcus Thompson - Former Senior IT Administrator
+    
+    INCIDENT OVERVIEW:
+    Marcus Thompson was a trusted Senior IT Administrator at TechCorp Industries for 8 years.
+    Last month, he was terminated for policy violations and inappropriate conduct. During his 
+    employment, Marcus had extensive access to company systems and knew executive schedules.
+    
+    Two weeks after termination, Marcus used his insider knowledge to target CEO Jennifer 
+    Martinez's workstation during her business trip to London. Using credentials he had 
+    previously obtained and cached, Marcus remotely accessed the CEO's computer to:
+    
+    • Establish persistent backdoor access for future reconnaissance
+    • Create hidden administrative accounts for continued access
+    • Modify security settings to evade detection
+    • Deploy tools for potential data exfiltration
+    • Maintain access for corporate espionage or sabotage
+    
+    The attack was discovered when automated security monitoring flagged suspicious account
+    creation activities on executive workstations. Your team is now conducting forensic
+    analysis of the CEO's computer to determine the scope of the breach and gather evidence
+    for potential prosecution.
+    
+    INVESTIGATION OBJECTIVES:
+    • Reconstruct the complete attack timeline
+    • Identify all accounts and backdoors created
+    • Determine what data may have been accessed
+    • Gather evidence of Marcus Thompson's involvement
+    • Assess potential for ongoing unauthorized access
+
+.ATTACK TIMELINE OVERVIEW
+    ════════════════════════════════════════════════════════════════════════════════════════
+    COMPLETE TIMELINE BREAKDOWN - ALL POSSIBLE TIMESTAMP VARIATIONS
+    ════════════════════════════════════════════════════════════════════════════════════════
+    
+    BASE TIME: [TimeBase Parameter] - Default: 24 hours ago
+    │
+    ├─ PHASE 1: INITIAL BREACH (Remote Desktop Access)
+    │  ├─ Event: Security Event 4624 (Successful Logon)
+    │  ├─ Timestamp Range: TimeBase + 1 to 5 minutes
+    │  ├─ Possible Windows: 4 different minute offsets
+    │  ├─ Actor: Marcus Thompson (Bruce.Wayne parameter)
+    │  ├─ Method: RDP connection using cached credentials
+    │  ├─ Source: Remote workstation/VPN connection
+    │  └─ Significance: Establishes initial compromise baseline
+    │
+    ├─ PHASE 2: PERSISTENCE ESTABLISHMENT (Backdoor Account Creation)
+    │  ├─ Event: Security Event 4720 (User Account Created)
+    │  ├─ Timestamp Range: RDP Time + 5 to 15 minutes
+    │  ├─ Possible Windows: 10 different minute offsets
+    │  ├─ Gap Analysis: 5-15 min = Reconnaissance and planning phase
+    │  ├─ Target: Creates "John.Hacksmith" backdoor account
+    │  ├─ Method: Using elevated RDP session privileges
+    │  └─ Significance: Shows progression from access to persistence
+    │
+    ├─ PHASE 3: PRIVILEGE ESCALATION (Administrative Access)
+    │  ├─ Event: Security Event 4732 (Member Added to Security Group)
+    │  ├─ Timestamp Range: User Creation + 1 to 5 minutes
+    │  ├─ Possible Windows: 4 different minute offsets
+    │  ├─ Gap Analysis: 1-5 min = Immediate privilege escalation
+    │  ├─ Action: Adds backdoor account to Administrators group
+    │  ├─ Method: Automated script or manual command execution
+    │  └─ Significance: Rapid escalation indicates experienced attacker
+    │
+    ├─ PHASE 4: DEFENSE EVASION (Firewall Manipulation)
+    │  ├─ Event: Windows Firewall logs + MPSSVC Service events
+    │  ├─ Timestamp Range: Group Addition + 2 to 10 minutes
+    │  ├─ Possible Windows: 8 different minute offsets
+    │  ├─ Gap Analysis: 2-10 min = Planning network access channels
+    │  ├─ Action: Creates "Definitely-Not-Malicious" firewall rule
+    │  ├─ Method: Opens TCP port for backdoor communication
+    │  └─ Significance: Shows use of admin rights for persistent access
+    │
+    └─ PHASE 5: MALICIOUS TOOL DEPLOYMENT (File Drop and Execution)
+       ├─ Sub-Phase 5A: File Creation
+       │  ├─ Event: Security Event 4656 (File System Object Access)
+       │  ├─ Timestamp Range: Firewall Creation + 3 to 8 minutes
+       │  ├─ Possible Windows: 5 different minute offsets
+       │  ├─ Gap Analysis: 3-8 min = Tool download/compilation phase
+       │  └─ Action: Creates "Totally-Not-Malware.exe" in temp directory
+       │
+       └─ Sub-Phase 5B: Tool Execution
+          ├─ Event: Security Event 4688 (Process Creation)
+          ├─ Timestamp Range: File Creation + 1 to 3 minutes
+          ├─ Possible Windows: 2 different minute offsets
+          ├─ Gap Analysis: 1-3 min = Immediate execution (automation)
+          └─ Action: Executes reconnaissance/backdoor tool
+    
+    TOTAL TIMELINE SPAN: 12 to 41 minutes (varies based on random timing)
+    MINIMUM ATTACK DURATION: 12 minutes (all shortest gaps)
+    MAXIMUM ATTACK DURATION: 41 minutes (all longest gaps)
+    
+    FORENSIC CORRELATION POINTS:
+    • All events tied to Marcus Thompson's initial RDP session
+    • Backdoor account "John.Hacksmith" used for persistent access
+    • Firewall rule name indicates attempt at deception
+    • File naming convention suggests awareness of detection
+    • Tight timing indicates pre-planned, scripted attack
+    
+    INVESTIGATIVE TIMELINE ANALYSIS:
+    • Short gaps (1-5 min) = Automated tools or practiced manual execution
+    • Medium gaps (5-15 min) = Reconnaissance, planning, or manual navigation
+    • Consistent progression = Experienced insider threat with system knowledge
+    • Tool naming = Psychological indicators of disgruntled employee
     
 .TIMELINE LOGIC
     - All events are chronologically sequenced from the TimeBase parameter (default: 1 day ago)
     - Events follow a realistic attack progression with authentic time gaps between actions
     - Total simulated attack timeline spans approximately 12-41 minutes
     - Timestamps create the appearance of a coordinated, multi-stage cyber attack
+    - Random elements ensure each simulation produces unique but realistic timing patterns
     
 .EDUCATIONAL VALUE
     Students will practice analyzing:
     - Windows Security Event logs (4624, 4720, 4732, 4656, 4688)
     - User account creation and privilege escalation
-    - Firewall rule modifications
-    - Process execution artifacts
-    - Timeline reconstruction techniques
+    - Firewall rule modifications and network security bypass
+    - Process execution artifacts and file system traces
+    - Timeline reconstruction techniques for insider threat investigations
+    - Correlation analysis between multiple log sources
+    - Insider threat behavioral patterns and TTPs (Tactics, Techniques, Procedures)
 #>
 
 param(
-    [datetime]$TimeBase = (Get-Date).AddDays(-1),                   # Starting timestamp for the simulated attack timeline (default: 24 hours ago)
-    [string]$ImpersonateUser = "Bruce.Wayne",                       # Name of the simulated remote attacker who initiates the breach
-    [string]$TargetUser = "John.Hacksmith",                         # Name of the local user account that will be created and compromised
-    [string]$ruleName = "Definitely-Not-Malicious",                 # Display name for the firewall rule that will be created
-    [string]$exePath = "$env:TEMP\Totally-Not-Malware.exe",         # File path where the benign test executable will be created
-    [int]$FirewallPort = (Get-Random -Minimum 2000 -Maximum 9999)   # TCP port number for the firewall rule (randomized for uniqueness)
+    [datetime]$TimeBase = (Get-Date).AddDays(-1),                   # Starting timestamp for the attack timeline (when Marcus began his assault)
+    [string]$ImpersonateUser = "Marcus.Thompson",                   # The disgruntled ex-IT admin conducting the insider attack
+    [string]$TargetUser = "Jennifer.Martinez.Backup",               # Backdoor account created by Marcus for persistent CEO computer access
+    [string]$ruleName = "Windows-System-Update-Service",            # Deceptive firewall rule name to avoid detection by other IT staff
+    [string]$exePath = "$env:TEMP\WindowsUpdateManager.exe",        # Malicious tool disguised as legitimate Windows component
+    [int]$FirewallPort = (Get-Random -Minimum 2000 -Maximum 9999)   # TCP port for backdoor communication channel (randomized per attack)
 )
 
 $ErrorActionPreference = 'Stop'
@@ -264,8 +374,16 @@ if (-not ([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdent
 
 
 # Configure Windows audit policies to ensure all simulated activities are properly logged
-Write-Host "CONFIGURING AUDIT POLICIES: Enabling comprehensive Security Event logging for Account Management, Policy Changes, and Process Tracking..." -ForegroundColor Yellow
-Write-Host "This ensures that all simulated attack activities will generate authentic Windows Security Events for analysis." -ForegroundColor Cyan
+Write-Host "🔍 INITIATING FORENSIC LAB SIMULATION - CEO COMPUTER BREACH INVESTIGATION" -ForegroundColor Yellow -BackgroundColor DarkRed
+Write-Host ""
+Write-Host "INCIDENT BRIEFING:" -ForegroundColor Yellow
+Write-Host "  • VICTIM: CEO Jennifer Martinez (this workstation)" -ForegroundColor White
+Write-Host "  • SUSPECT: Marcus Thompson - Former Senior IT Administrator" -ForegroundColor White  
+Write-Host "  • ATTACK DATE: $($TimeBase.ToString('yyyy-MM-dd')) during CEO's business trip to London" -ForegroundColor White
+Write-Host "  • DISCOVERY: Automated alerts flagged suspicious administrative account creation" -ForegroundColor White
+Write-Host ""
+Write-Host "CONFIGURING AUDIT POLICIES: Enabling comprehensive Security Event logging for investigation..." -ForegroundColor Yellow
+Write-Host "This ensures that Marcus Thompson's attack activities will generate authentic Windows Security Events for analysis." -ForegroundColor Cyan
 
 # Enable critical audit categories that will capture our simulated attack activities
 # These policies take effect immediately without requiring a system reboot
@@ -278,31 +396,43 @@ Write-Host "  → Account Management events (4720, 4732) will be logged to Secur
 Write-Host "  → Policy Change events (firewall modifications) will be logged to Windows Firewall log" -ForegroundColor Green  
 Write-Host "  → Process Tracking events (4688) will be logged to Security Event Log" -ForegroundColor Green
 Write-Host ""
-Write-Host "INITIATING ATTACK SIMULATION: Creating realistic cyber attack artifacts for forensic analysis training..." -ForegroundColor Yellow
+Write-Host "RECONSTRUCTING ATTACK TIMELINE: Simulating Marcus Thompson's insider attack on CEO workstation..." -ForegroundColor Yellow
 
 # ═══════════════════════════════════════════════════════════════════════════════════
-# PHASE 1: INITIAL BREACH - SIMULATED REMOTE DESKTOP CONNECTION
+# PHASE 1: INITIAL BREACH - INSIDER REMOTE DESKTOP ACCESS
 # ═══════════════════════════════════════════════════════════════════════════════════
+#
+# TIMELINE ANALYSIS - Marcus Thompson's RDP Access (Security Event 4624):
+# • Timestamp Range: TimeBase + 1-5 minutes (4-minute window)
+# • Possible Variations: Could occur 1, 2, 3, 4, or 5 minutes after TimeBase
+# • Time Gap Analysis: 4-minute window simulates time to establish secure VPN connection
+# • Forensic Significance: Establishes the initial compromise baseline timestamp
+# • Event Correlation: This timestamp becomes reference point for all subsequent activities
+# • Insider Context: Marcus knew CEO was traveling, used cached admin credentials
+#                    and connected during London business hours to avoid suspicion
+# • Log Location: Security Event Log (Event ID 4624)
+# • Key Investigation Fields: Source IP (Marcus's location), Workstation Name, Logon Type 10
 
-# Initialize attack timeline variables based on the specified TimeBase parameter
+# Initialize attack timeline variables based on when Marcus began his assault
 $currentTime = $TimeBase
-$src = "SimLabGenerator"
+$src = "ForensicLabGenerator"
 
-Write-Host "[PHASE 1] SIMULATING INITIAL BREACH: Remote Desktop Protocol (RDP) connection..." -ForegroundColor Magenta
+Write-Host "[PHASE 1] RECONSTRUCTING INITIAL BREACH: Marcus Thompson's remote access to CEO workstation..." -ForegroundColor Magenta
 
-# Generate realistic network connection details for the simulated RDP breach
-$rdpUser    = "$ImpersonateUser"                                    # The external attacker's username
-$sourceHost = "SERVER$(Get-Random -Minimum 01 -Maximum 99)"          # Simulated source workstation name
-$logonID    = New-RandomLogonId                                     # Unique session identifier
-$accountSid = New-RandomSid                                         # Security identifier for the attacker
+# Generate realistic network connection details for Marcus Thompson's insider attack
+$rdpUser    = "$ImpersonateUser"                                    # Marcus Thompson - the disgruntled ex-IT admin
+$sourceHost = "MARCUS-HOME-PC"                                      # Marcus's personal computer used for the attack
+$logonID    = New-RandomLogonId                                     # Unique session identifier for this breach
+$accountSid = New-RandomSid                                         # Security identifier for Marcus's account
 $srcPort    = "3389"                                                # Standard RDP port
-$sourceIP   = New-RandomIP                                          # Network-appropriate source IP address
+$sourceIP   = New-RandomIP                                          # Marcus's home internet connection IP
 
-# Calculate realistic timing for the initial RDP connection (1-5 minutes after TimeBase)
-# This represents the moment the attacker successfully authenticates via RDP
+# Calculate realistic timing for Marcus's initial RDP connection (1-5 minutes after TimeBase)
+# This represents when Marcus successfully authenticated using his cached admin credentials
 $rdpLogonTime = $currentTime.AddMinutes($(Get-Random -Minimum 1 -Maximum 5))
 
-Write-Host "  → Simulating RDP logon from $sourceIP (user: $rdpUser, workstation: $sourceHost)" -ForegroundColor Cyan
+Write-Host "  → Marcus Thompson connecting from $sourceIP via $sourceHost workstation" -ForegroundColor Cyan
+Write-Host "  → Using cached administrative credentials from his former IT position" -ForegroundColor DarkCyan
 $rdpGuid = New-RandomGuid
 $rdpProcessId = New-RandomProcessId
 $rdpProcessName = if ((Get-Random -Minimum 1 -Maximum 3) -eq 1) { "C:\Windows\System32\winlogon.exe" } else { "-" }
@@ -343,24 +473,38 @@ Write-Host "✓ Security Event 4624 (Successful Logon) injected - RDP session es
 # ═══════════════════════════════════════════════════════════════════════════════════
 # PHASE 2: PERSISTENCE - LOCAL USER ACCOUNT CREATION  
 # ═══════════════════════════════════════════════════════════════════════════════════
+#
+# TIMELINE ANALYSIS - Backdoor Account Creation (Security Event 4720):
+# • Timestamp Range: RDP Logon Time + 5-15 minutes (10-minute window)
+# • Possible Variations: Could occur 5-15 minutes after successful RDP logon
+# • Time Gap Analysis: 5-15 minute delay simulates Marcus's reconnaissance phase
+#                      as he navigates the CEO's computer and plans his persistence strategy
+# • Forensic Significance: Shows progression from initial access to establishing backdoors
+# • Event Correlation: Links back to Marcus's RDP logon event via same session
+# • Insider Context: Marcus knows CEO travel schedule, creates account during trip
+#                    to avoid immediate detection by CEO returning to workstation
+# • Log Location: Security Event Log (Event ID 4720)
+# • Key Investigation Fields: Creator SID (Marcus), Target Username (backup account)
+# • Timeline Delta: Always occurs AFTER RDP logon (minimum 5-minute reconnaissance gap)
 
 Write-Host ""
-Write-Host "[PHASE 2] ESTABLISHING PERSISTENCE: Creating local user account for sustained access..." -ForegroundColor Magenta
+Write-Host "[PHASE 2] ESTABLISHING PERSISTENCE: Marcus creates backdoor account for future CEO computer access..." -ForegroundColor Magenta
 
-# Configure user account details for the persistence phase
-$user = "$TargetUser"                                               # The local account to be created
-$pass = "ChangeMe!2025"                                             # Weak password typical in attack scenarios
-$impersonateLogonId = New-RandomLogonId                             # Session ID for the attacking user
-$impersonateSid = New-RandomSid                                     # SID for the external attacker
-$targetUserSid = New-RandomSid -Prefix "S-1-5-21-$([Math]::Abs($env:COMPUTERNAME.GetHashCode()))"  # Consistent SID for target user
+# Configure backdoor account details for Marcus's persistence strategy
+$user = "$TargetUser"                                               # The backup account Marcus will create
+$pass = "TechCorp2025!"                                             # Strong password to avoid detection by security scans
+$impersonateLogonId = New-RandomLogonId                             # Session ID for Marcus's actions
+$impersonateSid = New-RandomSid                                     # SID for Marcus Thompson
+$targetUserSid = New-RandomSid -Prefix "S-1-5-21-$([Math]::Abs($env:COMPUTERNAME.GetHashCode()))"  # Consistent SID for backdoor account
 
 if (-not (Get-LocalUser -Name $user -ErrorAction SilentlyContinue)) {
-    Write-Host "  → Creating local user account: $user" -ForegroundColor Cyan
+    Write-Host "  → Creating backdoor account: $user (disguised as backup account for CEO)" -ForegroundColor Cyan
     
-    # Calculate timing for user creation (5-15 minutes after RDP logon)
-    # This represents the attacker's first persistence action after gaining access
+    # Calculate timing for backdoor account creation (5-15 minutes after RDP logon)
+    # This represents Marcus's planning phase before establishing persistent access
     $userCreateTime = $rdpLogonTime.AddMinutes($(Get-Random -Minimum 5 -Maximum 15))
     Write-Host "  → Scheduled for: $($userCreateTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor DarkCyan
+    Write-Host "  → Marcus leveraging his IT knowledge to create convincing backup account name" -ForegroundColor DarkCyan
     
     # Actually create the user
     $secure = ConvertTo-SecureString $pass -AsPlainText -Force
@@ -402,27 +546,42 @@ if (-not (Get-LocalUser -Name $user -ErrorAction SilentlyContinue)) {
 "@
     
     Write-SecurityEvent -EventID 4720 -Message $event4720Data -EventTime $userCreateTime
-    Write-Host "✓ Local user account '$user' created successfully" -ForegroundColor Green
-    Write-Host "  → Password: $pass (typical weak password used in attack scenarios)" -ForegroundColor Green
-    Write-Host "  → Security Event 4720 (User Account Created) logged with $ImpersonateUser as creator" -ForegroundColor Green
+    Write-Host "✓ Backdoor account '$user' created successfully by Marcus Thompson" -ForegroundColor Green
+    Write-Host "  → Password: $pass (strong password to avoid automated security scans)" -ForegroundColor Green
+    Write-Host "  → Security Event 4720 (User Account Created) logged with Marcus as creator" -ForegroundColor Green
 } else {
-    Write-Host "⚠ User account '$user' already exists - skipping creation step" -ForegroundColor DarkYellow
+    Write-Host "⚠ Account '$user' already exists - Marcus may have accessed this system before" -ForegroundColor DarkYellow
 }
 
 # ═══════════════════════════════════════════════════════════════════════════════════
 # PHASE 3: PRIVILEGE ESCALATION - ADMINISTRATOR GROUP MEMBERSHIP
 # ═══════════════════════════════════════════════════════════════════════════════════
+#
+# TIMELINE ANALYSIS - Administrative Privilege Escalation (Security Event 4732):
+# • Timestamp Range: User Creation Time + 1-5 minutes (4-minute window)
+# • Possible Variations: Could occur 1-5 minutes after backdoor account creation
+# • Time Gap Analysis: Short 1-5 minute gap indicates immediate privilege escalation
+#                      typical of insider attacks where system knowledge allows rapid execution
+# • Forensic Significance: Shows Marcus's progression from persistence to full administrative control
+# • Event Correlation: Links to both RDP logon and backdoor account creation events
+# • Insider Context: Marcus immediately elevates privileges to maximize access to CEO data
+#                    before any defensive measures can be implemented
+# • Log Location: Security Event Log (Event ID 4732)
+# • Key Investigation Fields: Group SID (S-1-5-32-544 = Administrators), Member SID, Performer
+# • Timeline Delta: Always occurs AFTER backdoor creation (1-5 minute gap)
+# • Cumulative Timeline: RDP + 6-20 minutes total from initial breach
 
 Write-Host ""
-Write-Host "[PHASE 3] ESCALATING PRIVILEGES: Adding user to local Administrators group..." -ForegroundColor Magenta
+Write-Host "[PHASE 3] ESCALATING PRIVILEGES: Marcus grants administrative rights to backdoor account..." -ForegroundColor Magenta
 
 try {
     Add-LocalGroupMember -Group "Administrators" -Member $user -ErrorAction Stop
     
-    # Calculate timing for privilege escalation (1-5 minutes after user creation)
-    # This represents the attacker immediately elevating privileges for the new account
+    # Calculate timing for privilege escalation (1-5 minutes after backdoor creation)
+    # This represents Marcus immediately elevating privileges for maximum CEO data access
     $groupAddTime = $userCreateTime.AddMinutes($(Get-Random -Minimum 1 -Maximum 5))
     Write-Host "  → Scheduled privilege escalation for: $($groupAddTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor DarkCyan
+    Write-Host "  → Marcus using his insider knowledge to rapidly escalate backdoor account privileges" -ForegroundColor DarkCyan
     $event4732Data = @"
 <Data Name="MemberName">-</Data>
 <Data Name="MemberSid">$targetUserSid</Data>
@@ -437,33 +596,49 @@ try {
 "@
     
     Write-SecurityEvent -EventID 4732 -Message $event4732Data -EventTime $groupAddTime
-    Write-Host "✓ User '$user' successfully added to Administrators group" -ForegroundColor Green
-    Write-Host "  → Security Event 4732 (Member Added to Security Group) logged with $ImpersonateUser as performer" -ForegroundColor Green
+    Write-Host "✓ Backdoor account '$user' successfully granted Administrator privileges" -ForegroundColor Green
+    Write-Host "  → Security Event 4732 (Member Added to Security Group) logged with Marcus as performer" -ForegroundColor Green
+    Write-Host "  → Marcus now has persistent administrative access to CEO's computer" -ForegroundColor Green
 } catch {
-    Write-Host "⚠ User '$user' is already a member of Administrators group - skipping elevation step" -ForegroundColor DarkYellow
+    Write-Host "⚠ Account '$user' already has Administrator privileges - Marcus maintaining existing access" -ForegroundColor DarkYellow
 }
 
 # ═══════════════════════════════════════════════════════════════════════════════════
 # PHASE 4: DEFENSE EVASION - FIREWALL RULE MANIPULATION
 # ═══════════════════════════════════════════════════════════════════════════════════
+#
+# TIMELINE ANALYSIS - Deceptive Firewall Rule Creation (Windows Firewall Logs):
+# • Timestamp Range: Group Addition Time + 2-10 minutes (8-minute window)
+# • Possible Variations: Could occur 2-10 minutes after privilege escalation
+# • Time Gap Analysis: 2-10 minute delay represents Marcus's planning phase for establishing
+#                      covert communication channels and preparing for data exfiltration
+# • Forensic Significance: Shows use of administrative privileges for defense evasion
+# • Event Correlation: Links to privilege escalation event and demonstrates insider knowledge
+# • Insider Context: Marcus creates legitimate-sounding firewall rule to avoid detection
+#                    by other IT staff who might review firewall configurations
+# • Log Location: Windows Firewall with Advanced Security logs + MPSSVC Service logs
+# • Key Investigation Fields: Rule Name, Direction, Protocol, Port, Action, Creator
+# • Timeline Delta: Always occurs AFTER privilege escalation (2-10 minute gap)
+# • Cumulative Timeline: RDP + 8-30 minutes total from initial breach
 
 Write-Host ""
-Write-Host "[PHASE 4] CONFIGURING DEFENSE EVASION: Creating suspicious firewall rule..." -ForegroundColor Magenta
+Write-Host "[PHASE 4] ESTABLISHING COVERT CHANNELS: Marcus creates deceptive firewall rule for persistent access..." -ForegroundColor Magenta
 
-# Generate unique logon session for the target user's actions (realistic session management)
+# Generate unique logon session for the backdoor account's future actions
 $targetUserLogonId = New-RandomLogonId
 
 # Calculate timing for firewall manipulation (2-10 minutes after privilege escalation)
-# This represents the attacker using their new privileges to modify network defenses
+# This represents Marcus planning his covert communication channels for ongoing access
 $firewallCreateTime = $groupAddTime.AddMinutes($(Get-Random -Minimum 2 -Maximum 10))
 Write-Host "  → Scheduled firewall modification for: $($firewallCreateTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor DarkCyan
 
 try {
-    # Construct the netsh command that will be executed as the target user
+    # Construct the netsh command with deceptive rule name to avoid IT detection
     $netshCommand = "netsh advfirewall firewall add rule name=`"$ruleName`" dir=in action=allow protocol=TCP localport=$FirewallPort"
     
-    Write-Host "  → Creating inbound TCP rule '$ruleName' for port $FirewallPort" -ForegroundColor Cyan
-    Write-Host "  → Attempting execution as user '$TargetUser' for authentic logging..." -ForegroundColor Cyan
+    Write-Host "  → Creating deceptive inbound TCP rule '$ruleName' for port $FirewallPort" -ForegroundColor Cyan
+    Write-Host "  → Using legitimate-sounding name to avoid detection by other IT staff" -ForegroundColor Cyan
+    Write-Host "  → Attempting execution as backdoor account '$TargetUser' for stealth..." -ForegroundColor Cyan
     
     # Create a temporary batch file to execute the command
     $tempBatch = "$env:TEMP\firewall_$(Get-Random).bat"
@@ -534,6 +709,28 @@ try {
 # ═══════════════════════════════════════════════════════════════════════════════════
 # PHASE 5: MALICIOUS ACTIVITY - FILE CREATION AND EXECUTION
 # ═══════════════════════════════════════════════════════════════════════════════════
+#
+# TIMELINE ANALYSIS - File Creation (Security Event 4656) and Execution (Security Event 4688):
+# FILE CREATION:
+# • Timestamp Range: Firewall Creation Time + 3-8 minutes (5-minute window)
+# • Possible Variations: Could occur 3-8 minutes after firewall rule creation
+# • Time Gap Analysis: 3-8 minute delay represents malware download/compilation phase
+#                      after establishing network access channels
+# 
+# PROCESS EXECUTION:
+# • Timestamp Range: File Creation Time + 1-3 minutes (2-minute window)
+# • Possible Variations: Could occur 1-3 minutes after file creation
+# • Time Gap Analysis: Short 1-3 minute gap indicates immediate execution after deployment
+#                      typical of automated malware deployment scripts
+#
+# FORENSIC SIGNIFICANCE:
+# • Event Correlation: Links file creation to execution, showing complete attack chain
+# • Timeline Progression: Demonstrates full kill chain from access to execution
+# • Real-world Context: Attackers quickly execute payloads to minimize detection window
+# • Log Locations: Security Event Log (Events 4656, 4688)
+# • Key Fields: Process ID, Command Line, Parent Process, File Path, Access Rights
+# • Timeline Deltas: File creation AFTER firewall (3-8 min), execution AFTER creation (1-3 min)
+# • Cumulative Timeline: RDP + 12-41 minutes total attack duration
 
 Write-Host ""
 Write-Host "[PHASE 5] SIMULATING MALICIOUS PAYLOAD: Creating and executing benign test executable..." -ForegroundColor Magenta
@@ -666,26 +863,34 @@ try {
 }
 
 # ═══════════════════════════════════════════════════════════════════════════════════
-# ATTACK SIMULATION COMPLETE
+# INSIDER THREAT INVESTIGATION COMPLETE - EVIDENCE RECONSTRUCTION SUCCESSFUL
 # ═══════════════════════════════════════════════════════════════════════════════════
 
 Write-Host ""
-Write-Host "🎯 ATTACK SIMULATION SUCCESSFULLY COMPLETED" -ForegroundColor Green -BackgroundColor Black
+Write-Host "🔍 INSIDER THREAT INVESTIGATION SUCCESSFULLY RECONSTRUCTED" -ForegroundColor Green -BackgroundColor Black
 Write-Host ""
-Write-Host "ATTACK SEQUENCE SUMMARY:" -ForegroundColor Yellow
-Write-Host "  1. Initial Breach: RDP connection by $ImpersonateUser" -ForegroundColor White
-Write-Host "  2. Persistence: Local user account '$TargetUser' created" -ForegroundColor White  
-Write-Host "  3. Privilege Escalation: User added to Administrators group" -ForegroundColor White
-Write-Host "  4. Defense Evasion: Suspicious firewall rule '$ruleName' created" -ForegroundColor White
-Write-Host "  5. Malicious Activity: Test executable compiled and executed" -ForegroundColor White
+Write-Host "MARCUS THOMPSON'S ATTACK SEQUENCE EVIDENCE:" -ForegroundColor Yellow
+Write-Host "  1. Initial Breach: Remote RDP access using cached admin credentials" -ForegroundColor White
+Write-Host "  2. Persistence: Backdoor account '$TargetUser' created on CEO's computer" -ForegroundColor White  
+Write-Host "  3. Privilege Escalation: Backdoor account granted Administrator privileges" -ForegroundColor White
+Write-Host "  4. Defense Evasion: Deceptive firewall rule '$ruleName' created for covert access" -ForegroundColor White
+Write-Host "  5. Tool Deployment: Reconnaissance/exfiltration tool deployed and executed" -ForegroundColor White
 Write-Host ""
-Write-Host "FORENSIC ARTIFACTS GENERATED:" -ForegroundColor Yellow
-Write-Host "  → Security Event 4624: RDP logon authentication" -ForegroundColor Cyan
-Write-Host "  → Security Event 4720: User account creation" -ForegroundColor Cyan
-Write-Host "  → Security Event 4732: Administrator group membership" -ForegroundColor Cyan
-Write-Host "  → Windows Firewall logs: Suspicious rule creation" -ForegroundColor Cyan
-Write-Host "  → Security Event 4656: File system object access" -ForegroundColor Cyan
-Write-Host "  → Security Event 4688: Process creation and execution" -ForegroundColor Cyan
+Write-Host "DIGITAL FORENSIC EVIDENCE GENERATED:" -ForegroundColor Yellow
+Write-Host "  → Security Event 4624: Marcus Thompson's RDP authentication to CEO workstation" -ForegroundColor Cyan
+Write-Host "  → Security Event 4720: Backdoor account creation by Marcus Thompson" -ForegroundColor Cyan
+Write-Host "  → Security Event 4732: Administrative privilege escalation of backdoor account" -ForegroundColor Cyan
+Write-Host "  → Windows Firewall logs: Deceptive firewall rule creation for persistent access" -ForegroundColor Cyan
+Write-Host "  → Security Event 4656: Suspicious file creation in CEO's temp directory" -ForegroundColor Cyan
+Write-Host "  → Security Event 4688: Malicious tool execution under backdoor account context" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "INSIDER THREAT INDICATORS IDENTIFIED:" -ForegroundColor Yellow
+Write-Host "  → 📅 Attack occurred during CEO's known business travel (insider knowledge)" -ForegroundColor White
+Write-Host "  → 🔑 Use of cached administrative credentials from previous employment" -ForegroundColor White
+Write-Host "  → 🎯 Targeted attack specifically on CEO's personal workstation" -ForegroundColor White
+Write-Host "  → 🕰️ Rapid execution indicating familiarity with target environment" -ForegroundColor White
+Write-Host "  → 🎭 Deceptive naming conventions to avoid detection by IT security" -ForegroundColor White
+Write-Host "  → 📊 Timeline pattern consistent with planned insider attack methodology" -ForegroundColor White
 Write-Host ""
 Write-Host "ATTACK TIMELINE DETAILS:" -ForegroundColor Yellow
 Write-Host "  📅 Base Time: $($TimeBase.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
@@ -693,3 +898,65 @@ Write-Host "  ⏰ Total Duration: Approximately $([math]::Round(($fileCreateTime
 Write-Host "  🔍 Students can now analyze these realistic artifacts using standard forensic techniques" -ForegroundColor White
 Write-Host ""
 Write-Host "⚠️  CLEANUP REMINDER: Use 'Undo-Events.ps1' to remove simulated artifacts when training is complete" -ForegroundColor Red
+
+# ═══════════════════════════════════════════════════════════════════════════════════════════
+# ACTUAL TIMELINE ANALYSIS - SPECIFIC TIMESTAMPS USED IN THIS SIMULATION
+# ═══════════════════════════════════════════════════════════════════════════════════════════
+
+Write-Host ""
+Write-Host "📊 ACTUAL TIMELINE BREAKDOWN - SPECIFIC TIMESTAMPS GENERATED:" -ForegroundColor Yellow -BackgroundColor DarkBlue
+Write-Host ""
+
+# Calculate actual time differences for forensic analysis
+$rdpToUserCreation = ($userCreateTime - $rdpLogonTime).TotalMinutes
+$userToGroupAdd = ($groupAddTime - $userCreateTime).TotalMinutes  
+$groupToFirewall = ($firewallCreateTime - $groupAddTime).TotalMinutes
+$firewallToFile = ($fileCreateTime - $firewallCreateTime).TotalMinutes
+$fileToExecution = if ($execTime) { ($execTime - $fileCreateTime).TotalMinutes } else { 0 }
+$totalDuration = if ($execTime) { ($execTime - $rdpLogonTime).TotalMinutes } else { ($fileCreateTime - $rdpLogonTime).TotalMinutes }
+
+Write-Host "🕐 PHASE 1 - INITIAL BREACH:" -ForegroundColor Cyan
+Write-Host "   📅 RDP Logon Time: $($rdpLogonTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+Write-Host "   ⏱️  Time from BaseTime: +$([math]::Round(($rdpLogonTime - $TimeBase).TotalMinutes, 1)) minutes" -ForegroundColor Gray
+Write-Host ""
+
+Write-Host "🕑 PHASE 2 - PERSISTENCE:" -ForegroundColor Cyan  
+Write-Host "   📅 User Creation Time: $($userCreateTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+Write-Host "   ⏱️  Time Gap from RDP: +$([math]::Round($rdpToUserCreation, 1)) minutes" -ForegroundColor Gray
+Write-Host ""
+
+Write-Host "🕒 PHASE 3 - PRIVILEGE ESCALATION:" -ForegroundColor Cyan
+Write-Host "   📅 Group Addition Time: $($groupAddTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White  
+Write-Host "   ⏱️  Time Gap from User Creation: +$([math]::Round($userToGroupAdd, 1)) minutes" -ForegroundColor Gray
+Write-Host ""
+
+Write-Host "🕓 PHASE 4 - DEFENSE EVASION:" -ForegroundColor Cyan
+Write-Host "   📅 Firewall Rule Time: $($firewallCreateTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+Write-Host "   ⏱️  Time Gap from Group Addition: +$([math]::Round($groupToFirewall, 1)) minutes" -ForegroundColor Gray  
+Write-Host ""
+
+Write-Host "🕔 PHASE 5 - MALICIOUS ACTIVITY:" -ForegroundColor Cyan
+Write-Host "   📅 File Creation Time: $($fileCreateTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White
+Write-Host "   ⏱️  Time Gap from Firewall: +$([math]::Round($firewallToFile, 1)) minutes" -ForegroundColor Gray
+
+if ($execTime) {
+    Write-Host "   📅 Process Execution Time: $($execTime.ToString('yyyy-MM-dd HH:mm:ss'))" -ForegroundColor White  
+    Write-Host "   ⏱️  Time Gap from File Creation: +$([math]::Round($fileToExecution, 1)) minutes" -ForegroundColor Gray
+}
+Write-Host ""
+
+Write-Host "⏰ TOTAL ATTACK TIMELINE SUMMARY:" -ForegroundColor Yellow
+Write-Host "   🎯 Total Attack Duration: $([math]::Round($totalDuration, 1)) minutes" -ForegroundColor White
+Write-Host "   📊 Longest Gap: $([math]::Round([math]::Max([math]::Max([math]::Max([math]::Max($rdpToUserCreation, $userToGroupAdd), $groupToFirewall), $firewallToFile), $fileToExecution), 1)) minutes (between phases)" -ForegroundColor White
+Write-Host "   📊 Shortest Gap: $([math]::Round([math]::Min([math]::Min([math]::Min([math]::Min($rdpToUserCreation, $userToGroupAdd), $groupToFirewall), $firewallToFile), $fileToExecution), 1)) minutes (between phases)" -ForegroundColor White
+Write-Host ""
+
+Write-Host "🎓 STUDENT FORENSIC ANALYSIS OBJECTIVES:" -ForegroundColor Yellow
+Write-Host "   • Correlate Marcus Thompson's RDP access with subsequent malicious activities" -ForegroundColor White
+Write-Host "   • Identify insider threat indicators: timing, naming patterns, system knowledge" -ForegroundColor White  
+Write-Host "   • Trace the complete attack kill chain: Access → Persistence → Escalation → Evasion → Tools" -ForegroundColor White
+Write-Host "   • Analyze time gaps to distinguish reconnaissance vs. automated execution phases" -ForegroundColor White
+Write-Host "   • Evaluate deceptive techniques used to avoid IT security detection" -ForegroundColor White
+Write-Host "   • Build timeline evidence for potential criminal prosecution of insider threat" -ForegroundColor White
+Write-Host "   • Short gaps ($([math]::Round($userToGroupAdd, 1))min, $([math]::Round($fileToExecution, 1))min) suggest automation or practiced execution" -ForegroundColor White
+Write-Host "   • Longer gaps ($([math]::Round($rdpToUserCreation, 1))min, $([math]::Round($firewallToFile, 1))min) suggest manual reconnaissance and planning" -ForegroundColor White
