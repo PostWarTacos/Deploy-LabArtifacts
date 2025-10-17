@@ -1,0 +1,28 @@
+# PowerShell specific
+*.log
+*.tmp
+*.temp
+*~
+
+# Windows specific
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# IDE/Editor files
+.vscode/
+.vs/
+*.swp
+*.swo
+
+# Credentials and secrets
+*.credentials
+*.secrets
+config.json
+settings.json
+
+# Build outputs
+bin/
+obj/
+dist/
